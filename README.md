@@ -7,10 +7,12 @@
 # Table of Content
 |No|Pattern|
 |-----|----------|
-|1|[Command](#Comand)|
-|2|[Mediator](Mediator)|
-|3|[Adapter](Adapter)|
-|4|[Facade](Facade)|
+|1|[Command](#Command)|
+|2|[Mediator](#Mediator)|
+|3|[Adapter](#adapter)|
+|4|[Facade](#Facade)|
+
+---
 
 # Command
 
@@ -26,6 +28,7 @@ Pattern breakdown
 ||CommunicationService|
 ||AccessControlSystem|
 
+---
 
 
 # Mediator
@@ -38,5 +41,7 @@ Pattern breakdown
 |ConcreteMediator||
 
 # Adapter
+---
 
+---
 # Facade
