@@ -19,7 +19,7 @@ IssueAlertCommand::IssueAlertCommand(CommunicationService *rec, const std::strin
  */
 void IssueAlertCommand::execute()
 {
-    // receiver->
+    receiver->triggerEvent(this->message);
 }
 
 /**

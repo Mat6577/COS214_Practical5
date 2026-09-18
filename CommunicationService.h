@@ -15,6 +15,8 @@ public:
     }
     void triggerEvent(const std::string& event) override {
         std::cout << "CommunicationService triggered: " << event << std::endl;
+        attendIncident();
+        assessScene();
     }
     void sendAlert(const std::string& msg) {
         std::cout << "CommunicationService sending alert: " << msg << std::endl;
