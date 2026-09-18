@@ -11,6 +11,9 @@ public:
     ~OperatorConsole();
     void executeCommand(Command* c);
     void undoLast();
+    void addCommand(Command* com);
+    void removeCommand(Command* com);
+    Command* getCommand(int index);
 };
 
 #endif // OPERATORCONSOLE_H

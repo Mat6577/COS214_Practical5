@@ -5,7 +5,7 @@
 #include <memory>
 
 class EmergencyCoordinator; 
-class Stages; 
+#include "Stages.h" 
 class ResponseComponent {
 protected:
     EmergencyCoordinator* mediator;
@@ -20,6 +20,10 @@ public:
     
     void changeStage(std::unique_ptr<Stages> newStage) {
         state = std::move(newStage);
+    }
+
+    void setMediator(EmergencyCoordinator* m) {
+        mediator = m;
     }
 
     void requestAlert();

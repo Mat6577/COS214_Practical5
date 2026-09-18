@@ -1,5 +1,5 @@
 #include "DispatchUnitCommand.h"
-
+#include <iostream>
 /**
  * @brief Parameterized Constructor
  * @param rece A pointer to an instance of the Accesscontrol (The patterns Receiver)
@@ -19,7 +19,10 @@ DispatchUnitCommand::DispatchUnitCommand(ResponseComponent *rec, const std::stri
  */
 void DispatchUnitCommand::execute()
 {
-    receiver->triggerEvent(this->location);
+    std::cout << "Executing DispatchUnitCommand to location: " << this->location << std::endl;
+    if (receiver) {
+        receiver->triggerEvent(this->location);
+    }
 }
 
 /**
@@ -31,5 +34,8 @@ void DispatchUnitCommand::execute()
  */
 void DispatchUnitCommand::undo()
 {
-    receiver->receiveNotification(this->location);
+    std::cout << "Undoing DispatchUnitCommand to location: " << this->location << std::endl;
+    if (receiver) {
+        receiver->receiveNotification(this->location);
+    }
 }
