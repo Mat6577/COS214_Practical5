@@ -13,12 +13,21 @@
 class AccessControlSystem : public AccessControl, private LegacyAccessControlSystem{
     LegacyAccessControlSystem* legacy;
 public:
+    AccessControlSystem() {
+        legacy = new LegacyAccessControlSystem();
+    }
+
+    ~AccessControlSystem() {
+        delete legacy;
+    }
+
     void receiveNotification(const std::string& event) override {
         std::cout << "AccessControlSystem received: " << event << std::endl;
     }
     void triggerEvent(const std::string& event) override {
         std::cout << "AccessControlSystem triggered: " << event << std::endl;
     }
+
     /// @brief Updated these to call the legacy code
     /// @param area A pointer to a campusComponent instance
     void lockArea(CampusComponent* area) {
