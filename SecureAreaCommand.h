@@ -2,15 +2,16 @@
 #define SECUREAREACOMMAND_H
 
 #include "Command.h"
-#include "AccessControlSystem.h"
+#include "AccessControl.h"
 #include "CampusComponent.h"
 
 class SecureAreaCommand : public Command {
 private:
-    AccessControlSystem* receiver;
+    // Changed this to AccessControl. I forgot to change it on the UML before sending it.
+    AccessControl* receiver;
     CampusComponent* area;
 public:
-    SecureAreaCommand(AccessControlSystem* rec, CampusComponent* a);
+    SecureAreaCommand(AccessControl* rec, CampusComponent* a);
     void execute() override;
     void undo() override;
 };
