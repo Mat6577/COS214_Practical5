@@ -7,7 +7,7 @@
 
 class SecureAreaCommand : public Command {
 private:
-    // Changed this to AccessControl. I forgot to change it on the UML before sending it.
+    // Changed this to AccessControl. I forgot to change it on the UML before sending.
     AccessControl* receiver;
     CampusComponent* area;
 public:
