@@ -12,6 +12,7 @@ protected:
     std::unique_ptr<Stages> state; 
 
 public:
+    ResponseComponent() = default;
     virtual ~ResponseComponent() = default;
     
     virtual void receiveNotification(const std::string& event) = 0;

@@ -1,9 +1,9 @@
 #include "SecureAreaCommand.h"
 
 /**
- * @brief Parameterized Constructor for the instance variables
- * @param a A pointer to an instance of the Accesscontrol (The patterns Receiver)
- * @param b A pointer to an instance of the CampusComponent, which is the are where we will be applying the changes
+ * @brief Parameterized Constructor
+ * @param receiver A pointer to an instance of the Accesscontrol (The patterns Receiver)
+ * @param area A pointer to an instance of the CampusComponent, which is the are where we will be applying the changes
  * 
  * @date 18/09/2026
  */
@@ -19,7 +19,7 @@ SecureAreaCommand::SecureAreaCommand(AccessControl *rec, CampusComponent *a)
  */
 void SecureAreaCommand::execute()
 {
-    receiver->
+    receiver->lockArea(this->area);
 }
 
 /**
@@ -31,5 +31,5 @@ void SecureAreaCommand::execute()
  */
 void SecureAreaCommand::undo()
 {
-    receiver->
+    receiver->unlockArea(this->area);
 }
