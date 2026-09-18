@@ -11,7 +11,9 @@ private:
     std::string location;
 public:
     DispatchUnitCommand(ResponseComponent* rec, const std::string& loc);
-    ~DispatchUnitCommand() = default;
+    ~DispatchUnitCommand(){
+        delete receiver;
+    }
     void execute() override;
     void undo() override;
 };
