@@ -12,8 +12,10 @@ protected:
     std::unique_ptr<Stages> state; 
 
 public:
-    ResponseComponent() = default;
-    virtual ~ResponseComponent() = default;
+    virtual ~ResponseComponent() {
+        delete mediator;
+        state = nullptr;
+    }
     
     virtual void receiveNotification(const std::string& event) = 0;
     virtual void triggerEvent(const std::string& event) = 0;

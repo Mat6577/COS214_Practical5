@@ -11,8 +11,9 @@ private:
     std::vector<ResponseComponent*> components;
 
 public:
-    ConcreteEmergencyCoordinator() = default;
-    ~ConcreteEmergencyCoordinator() = default;
+    ~ConcreteEmergencyCoordinator() {
+        components.clear();
+    }
 
     void addComponent(ResponseComponent* component);
     

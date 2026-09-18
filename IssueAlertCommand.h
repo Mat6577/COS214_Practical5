@@ -11,6 +11,9 @@ private:
     std::string message;
 public:
     IssueAlertCommand(CommunicationService* rec, const std::string& msg);
+    ~IssueAlertCommand() {
+        delete receiver;
+    }
     void execute() override;
     void undo() override;
 };

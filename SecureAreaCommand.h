@@ -12,6 +12,10 @@ private:
     CampusComponent* area;
 public:
     SecureAreaCommand(AccessControl* rec, CampusComponent* a);
+    ~SecureAreaCommand() {
+        delete receiver;
+        delete area;
+    }
     void execute() override;
     void undo() override;
 };
