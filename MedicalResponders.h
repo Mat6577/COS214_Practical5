@@ -12,7 +12,6 @@ public:
     MedicalResponders() = default;
     ~MedicalResponders() = default;
 
-    void assessScene() override;
     void attendIncident() override;
     void leaveScene() override;
 };

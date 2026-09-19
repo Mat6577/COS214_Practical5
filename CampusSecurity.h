@@ -12,7 +12,6 @@ public:
     CampusSecurity() = default;
     ~CampusSecurity() = default;
 
-    void assessScene() override;
     void attendIncident() override;
     void leaveScene() override;
 };

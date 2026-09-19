@@ -22,148 +22,87 @@
 #include "Response.h"
 #include "Recovery.h"
 #include "ResponseComponent.h"
+#include "FacilityStaff.h"
 
-
-// A minimal dummy receiver just to test your State pattern output
-// class DummyReceiver : public ResponseComponent {
-// public:
-//     // Added 'const' to match the base class perfectly
-//     void triggerEvent(const std::string& event) override {
-//         std::cout << "  -> Receiver caught event: " << event << "\n";
-//     }
-
-//     void receiveNotification(const std::string& event) override {
-//         std::cout << "  -> Receiver notified: " << event << "\n";
-//     }
-// };
-
-// void NavelasTest() {
-//     // 1. Instantiate the receiver (Context)
-//     DummyReceiver testReceiver;
-
-//     // 2. Initialize with Detection State
-//     std::cout << "=== INITIALIZING DETECTION STATE ===\n";
-//     testReceiver.changeStage(std::unique_ptr<Stages>(new Detection()));
-    
-//     // Test routing (Alert should work, Dispatch should fail)
-//     testReceiver.requestAlert();    
-//     testReceiver.requestDispatch(); 
-
-
-//     // 3. Transition to Response State
-//     std::cout << "\n=== TRANSITIONING TO RESPONSE STATE ===\n";
-//     testReceiver.changeStage(std::unique_ptr<Stages>(new Response()));
-    
-//     // Test routing (Dispatch should work, Secure should fail)
-//     testReceiver.requestDispatch(); 
-//     testReceiver.requestSecure();   
-
-
-//     // 4. Transition to Recovery State
-//     std::cout << "\n=== TRANSITIONING TO RECOVERY STATE ===\n";
-//     testReceiver.changeStage(std::unique_ptr<Stages>(new Recovery()));
-    
-//     // Test routing (Secure should work, Alert should fail)
-//     testReceiver.requestSecure();   
-//     testReceiver.requestAlert();    
-
-// }
+void IncidentOne();
+void IncidentTwo();
 
 int main() {
-    // NavelasTest();
-
-    std::string issue1 = "Student strike outside the school";
-    std::string issue2 = "Student strike outside the school";
-
-        // CommunicationService
-    CommunicationService* campusSecurity = new CampusSecurity();
-    Command* issueAlertSecurity = new IssueAlertCommand(campusSecurity, issue1);
-
-    CommunicationService* medicalResponders = new MedicalResponders();
-    Command* issueAlertMedical = new IssueAlertCommand(medicalResponders, issue2);
-
-
-        // OperatorConsole
-        
-    OperatorConsole* operatorConsole = new OperatorConsole();
-
-        // AccessControlSystem
-    AccessControlSystem* accessControlSystem = new AccessControlSystem();
-
-        // CampusSomponent
-    CampusComponent* studentHall = new CampusComponent();
-
-        // SecureAreaCommand
-    Command* secureArea = new SecureAreaCommand(accessControlSystem, studentHall);
-
-
-        // Stages
-    accessControlSystem->changeState();
-
-
-
-        // OperatorConsole
-    operatorConsole->executeCommand(issueAlertMedical);
-    operatorConsole->executeCommand(issueAlertSecurity);
-    operatorConsole->executeCommand(secureArea);
-
-        // State Changing
-    medicalResponders->changeState();
-    campusSecurity->changeState();
-
-    Command* comm = operatorConsole->getCommand(2);
-    if (comm) {
-        comm->execute();
-    }
-
-    ConcreteEmergencyCoordinator* emergencyCoordinator = new ConcreteEmergencyCoordinator();
-
-
-    emergencyCoordinator->addComponent(campusSecurity);
-    emergencyCoordinator->addComponent(medicalResponders);
-    emergencyCoordinator->addComponent(accessControlSystem);
-
-    campusSecurity->setMediator(emergencyCoordinator);
-    medicalResponders->setMediator(emergencyCoordinator);
-
-    emergencyCoordinator->notify(accessControlSystem);
-    
-    operatorConsole->undoLast();
-    operatorConsole->undoLast();
-
-    operatorConsole->removeCommand(secureArea);
-
-
-    CampusSecurity* campus2Security = new CampusSecurity();
-    DispatchUnitCommand* dispatch = new DispatchUnitCommand(campus2Security, "Hall1");
-
-    campus2Security->requestAlert();
-    campus2Security->requestDispatch();
-    campus2Security->requestSecure();
-
-    std::unique_ptr<Stages> rec(new Recovery());
-    rec->handleAlert(campus2Security);
-    rec->handleDispatch(campus2Security);
-    rec->handleSecure(campus2Security);
-
-    Response* response = new Response();
-    response->handleDispatch(campus2Security);
-    Recovery* recovery = new Recovery();
-    recovery->handleSecure(campus2Security);
-    Detection* detection = new Detection();
-    detection->handleAlert(campus2Security);
-
-
-    campus2Security->setStage(std::move(rec));
-
-
-    operatorConsole->executeCommand(dispatch);
-    operatorConsole->undoLast();
-
-
-
-    delete operatorConsole;
-    delete emergencyCoordinator;
+    IncidentOne();
 
     return 0;
+}
+    // There is a fire
+    // we create the staff which will be in detection
+    // We then call the csmpus security
+    // Then the secutiry will lock the place, and the security will call the medical responders.
+    // Everybody does theor thing, then everybody gets notified to recovery
+
+
+
+
+
+void IncidentOne() {
+    OperatorConsole* librarySystem = new OperatorConsole();
+    std::string issue = "Student strike";
+
+    // Set up the access control command for the library area
+    AccessControlSystem* libraryControl = new AccessControlSystem();  // Receiver
+    CampusComponent* library = new CampusComponent();                 // Area being secured
+    SecureAreaCommand* LibrarySecurityManagement = new SecureAreaCommand(libraryControl, library);
+
+    // Create the staff receiver, starting in the Detection state
+    CommunicationService* libraryStaff = new FacilityStaff();
+    libraryStaff->changeState();  // Detection
+
+    // Note: staff does not have a command assigned
+
+    // Create the security receiver, starting in the Detection state
+    CommunicationService* librarySecurity = new CampusSecurity();
+    librarySecurity->changeState();  // Detection
+
+    // Command that lets security issue an alert about the current situation
+    IssueAlertCommand* securityIssueHandler = new IssueAlertCommand(librarySecurity, issue);
+
+    // Mediator connecting staff to security
+    EmergencyCoordinator* staffToSecurity = new ConcreteEmergencyCoordinator();
+    libraryStaff->setMediator(staffToSecurity);
+    staffToSecurity->addComponent(librarySecurity);  // Staff can notify security
+
+    // Mediator connecting security to its own colleagues (staff and access control)
+    EmergencyCoordinator* SecurityToOthers = new ConcreteEmergencyCoordinator();
+    librarySecurity->setMediator(SecurityToOthers);
+    SecurityToOthers->addComponent(libraryStaff);
+    SecurityToOthers->addComponent(libraryControl);
+
+    // Advance staff to Response and notify its mediator
+    libraryStaff->changeState();
+    staffToSecurity->notify(libraryStaff);
+
+    // Advance security to Response and notify its mediator
+    librarySecurity->changeState();
+    SecurityToOthers->notify(librarySecurity);
+
+    // Staff advances again
+    libraryStaff->changeState();
+
+    std::cout << "+++++++++++++++++ Command +++++++++++++++++++\n";
+    librarySystem->executeCommand(securityIssueHandler);
+    librarySystem->executeCommand(LibrarySecurityManagement);
+
+    std::cout << "\n\nSecurity resolving the issue\n\n";
+    libraryStaff->changeState();
+
+    // Undo the two executed commands, most recent first
+    librarySystem->undoLast();
+    librarySystem->undoLast();
+
+    // Clean up heap-allocated objects
+    delete librarySystem;
+    delete staffToSecurity;
+    delete SecurityToOthers;
+}
+
+void IncidentTwo() {
+
 }

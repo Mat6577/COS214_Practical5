@@ -9,6 +9,7 @@ public:
     
     // The UML specifies notify(components : ResponseComponent*)
     virtual void notify(ResponseComponent* component) = 0;
+    virtual void addComponent(ResponseComponent* component) = 0;
 };
 
 #endif // EMERGENCYCOORDINATOR_H

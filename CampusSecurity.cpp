@@ -1,16 +1,5 @@
 #include "CampusSecurity.h"
 
-void CampusSecurity::assessScene() {
-    std::string String = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-    String += "+ Stage:                                                          Scene Assessment  +\n";
-    String += "+ Hazards_Checked:                                    Fire, obstruction, crowd risk  +\n";
-    String += "+ Threat_Level:                                                             Low  +\n";
-    String += "+ Access_Points:                                                      2 identified  +\n";
-    String += "+ Decision:                                              Safe to proceed, no backup  +\n";
-    String += "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-    std::cout << String << std::endl;
-}
-
 void CampusSecurity::attendIncident() {
     std::string String = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
     String += "+ Stage:                                                            Incident Response  +\n";

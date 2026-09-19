@@ -1,15 +1,5 @@
 #include "MedicalResponders.h"
 
-void MedicalResponders::assessScene() {
-    std::string String = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-    String += "+ Stage:                                                          Scene Assessment  +\n";
-    String += "+ Hazards_Checked:                                     Traffic, fire, crowd control  +\n";
-    String += "+ Patients_Identified:                                                            1  +\n";
-    String += "+ Scene_Safety:                                                       Confirmed Safe  +\n";
-    String += "+ Decision:                                                 Proceed with treatment  +\n";
-    String += "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-    std::cout << String << std::endl;
-}
 
 void MedicalResponders::attendIncident() {
     std::string String = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
