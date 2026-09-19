@@ -1,18 +1,18 @@
 #ifndef STAGE_H
 #define STAGE_H
 
-class ResponseComponent; // Forward declaration to prevent circular dependencies
+class CommunicationService;
 
 class Stages {
 public:
     virtual ~Stages() = default;
 
-    virtual void handle(ResponseComponent* context) = 0;
+    virtual void handle(CommunicationService* context) = 0;
 
     // Default rejection methods
-    virtual void handleAlert(ResponseComponent* context);
-    virtual void handleDispatch(ResponseComponent* context);
-    virtual void handleSecure(ResponseComponent* context);
+    virtual void handleAlert(CommunicationService* context);
+    virtual void handleDispatch(CommunicationService* context);
+    virtual void handleSecure(CommunicationService* context);
 };
 
 #endif

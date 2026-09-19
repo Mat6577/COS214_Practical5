@@ -2,11 +2,13 @@
 #define RESPONSE_H
 
 #include "Stages.h"
+class CommunicationService;
+
 
 class Response : public Stages {
 public:
-    void handle(ResponseComponent* context) override;
-    void handleDispatch(ResponseComponent* context) override;
+    void handle(CommunicationService* context) override;
+    void handleDispatch(CommunicationService* context) override;
 };
 
 #endif      

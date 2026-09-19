@@ -1,9 +1,9 @@
 #include "Detection.h"
-#include "ResponseComponent.h"
 #include "Response.h"
 #include <iostream>
+#include "CommunicationService.h" 
 
-void Detection::handleAlert(ResponseComponent* context) {
+void Detection::handleAlert(CommunicationService* context) {
     std::cout << "[Success] Detection State: Executing Alert Sequence...\n";
     std::string eventMsg = "AlertAuthorities";
     context->triggerEvent(eventMsg);
@@ -15,7 +15,7 @@ void Detection::handleAlert(ResponseComponent* context) {
  * 
  * @date 19/09/2026
  */
-void Detection::handle(ResponseComponent* context) {
+void Detection::handle(CommunicationService* context) {
     if (!context) {return;}
     handleAlert(context);
 

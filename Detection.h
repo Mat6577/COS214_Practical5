@@ -2,11 +2,12 @@
 #define DETECTION_H
 
 #include "Stages.h"
+class CommunicationService;
 
 class Detection : public Stages {
 public:
-    void handle(ResponseComponent* context) override;
-    void handleAlert(ResponseComponent* context) override;
+    void handle(CommunicationService* context) override;
+    void handleAlert(CommunicationService* context) override;
 };
 
 #endif

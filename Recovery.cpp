@@ -1,9 +1,9 @@
 #include "Recovery.h"
-#include "ResponseComponent.h"
 #include <iostream>
 #include <string>
+#include "CommunicationService.h" 
 
-void Recovery::handleSecure(ResponseComponent* context) {
+void Recovery::handleSecure(CommunicationService* context) {
     std::cout << "Recovery stage handling secure event." << std::endl;
 }
 
@@ -13,7 +13,7 @@ void Recovery::handleSecure(ResponseComponent* context) {
  * 
  * @date 19/09/2026
  */
-void Recovery::handle(ResponseComponent* context) {
+void Recovery::handle(CommunicationService* context) {
     if (!context) {return;}
     handleSecure(context);
 

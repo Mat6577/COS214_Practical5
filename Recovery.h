@@ -2,11 +2,13 @@
 #define RECOVERY_H
 
 #include "Stages.h"
+class CommunicationService;
+
 
 class Recovery : public Stages {
 public:
-    void handle(ResponseComponent* context) override;
-    void handleSecure(ResponseComponent* context) override;
+    void handle(CommunicationService* context) override;
+    void handleSecure(CommunicationService* context) override;
 };
 
 #endif
