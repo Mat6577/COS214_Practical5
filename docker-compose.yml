@@ -1,0 +1,5 @@
+version: '3'
+services:
+  campusguard:
+    build: .
+    image: campusguard_app
