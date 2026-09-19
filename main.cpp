@@ -35,8 +35,13 @@ int main() {
     // There is a fire
     // we create the staff which will be in detection
     // We then call the csmpus security
-    // Then the secutiry will lock the place, and the security will call the medical responders.
-    // Everybody does theor thing, then everybody gets notified to recovery
+    // The staff notifies the campus security (one of its observers)
+    // We create building
+    // We create medical stuff
+    // The security then observes the staff, the building and the medical team
+    // Staff- for when everything is fine
+    // Medical team - when it is safe to enter the building
+    // Building - when it is ready to let people in
 
 
 
@@ -104,5 +109,55 @@ void IncidentOne() {
 }
 
 void IncidentTwo() {
+    OperatorConsole* BuildingSystem = new OperatorConsole();
+    std::string issue = "One of the lectureHalls is on fire";
 
+    // Set up the access control command for the library area
+    AccessControlSystem* BuildingControl = new AccessControlSystem();  // Receiver
+    CampusComponent* lectureHall = new CampusComponent();                 // Area being secured
+    SecureAreaCommand* LectureHallSecurityManagement = new SecureAreaCommand(BuildingControl, lectureHall);
+
+    // Create the staff receiver, starting in the Detection state
+    CommunicationService* lectures = new FacilityStaff();
+    lectures->changeState();  // Detection
+
+    // Note: staff does not have a command assigned
+
+    // Create the security receiver, starting in the Detection state
+    CommunicationService* hallSecurity = new CampusSecurity();
+    hallSecurity->changeState();  // Detection
+
+    // Command that lets security issue an alert about the current situation
+    IssueAlertCommand* securityIssueHandler = new IssueAlertCommand(hallSecurity, issue);
+
+    // Mediator connecting staff to security
+    EmergencyCoordinator* lectureToSecurity = new ConcreteEmergencyCoordinator();
+    lectures->setMediator(lectureToSecurity);
+    lectureToSecurity->addComponent(hallSecurity);  // Staff can notify security
+
+    lectureToSecurity->notify(lectures);    // Notifying the security of the fire
+
+    CommunicationService* medicalProfessionals = new MedicalResponders();
+    medicalProfessionals->changeState();        // Changes state to detectior
+    IssueAlertCommand* medicalIssueHandler = new IssueAlertCommand(medicalProfessionals, issue);
+
+
+    EmergencyCoordinator* securityToAll = new ConcreteEmergencyCoordinator();
+    securityToAll->addComponent(lectures);
+    securityToAll->addComponent(BuildingControl);
+    securityToAll->addComponent(medicalProfessionals);
+    hallSecurity->changeState();
+
+    securityToAll->notify(hallSecurity);
+    medicalProfessionals->changeState();
+    lectures->changeState();
+
+    BuildingSystem->executeCommand(securityIssueHandler);
+    BuildingSystem->executeCommand(LectureHallSecurityManagement);
+    BuildingSystem->executeCommand(medicalIssueHandler);
+
+    // Clean up heap-allocated objects
+    delete BuildingSystem;
+    delete lectureToSecurity;
+    delete securityToAll;
 }
