@@ -23,6 +23,7 @@
 #include "Recovery.h"
 #include "ResponseComponent.h"
 #include "FacilityStaff.h"
+#include "EmergencyFacade.h"
 
 void IncidentOne();
 void IncidentTwo();
@@ -31,6 +32,10 @@ int main() {
     IncidentOne();
     IncidentTwo();
 
+    EmergencyFacade facade;
+    facade.handleStrike("Student strike");
+    facade.handleFire("One of the lectureHalls is on fire");
+    
     return 0;
 }
 

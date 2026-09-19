@@ -15,7 +15,8 @@ SOURCES = \
 		Response.cpp \
 		SecureAreaCommand.cpp \
 		Stages.cpp \
-		FacilityStaff.cpp
+		FacilityStaff.cpp \
+		EmergencyFacade.cpp
 
 TARGET = CampusGuard
 
