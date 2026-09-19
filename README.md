@@ -2,7 +2,7 @@
 
 ## Team Members
 - **Ashley Mthemba** - u25072235
-- **Tebello Mohohoma** - [Insert Student Number]
+- **Tebello Mohohoma** - u25256387
 - **Navela Hlungwani** - [Insert Student Number]
 
 ---
