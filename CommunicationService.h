@@ -7,13 +7,13 @@
 
 class CommunicationService : public ResponseComponent {
 public:
-  CommunicationService() = default;
-  ~CommunicationService() = default;
+  virtual ~CommunicationService() = default;
 
   void receiveNotification(const std::string &event) override {
     std::cout << "CommunicationService received: " << event << std::endl;
   }
   void triggerEvent(const std::string &event) override {
+    receiveNotification(event);
     std::cout << "CommunicationService triggered: " << event << std::endl;
     attendIncident();
     assessScene();

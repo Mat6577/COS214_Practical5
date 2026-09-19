@@ -10,6 +10,7 @@
  */
 class CampusComponent {
 public:
+    virtual ~CampusComponent() = default;
     virtual void lock() {
         std::cout << "This area is locked from access, please try again later.\n";
     }

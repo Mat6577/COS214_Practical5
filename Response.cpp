@@ -2,6 +2,7 @@
 #include <string>
 #include "ResponseComponent.h"
 #include "Response.h"
+#include "Recovery.h"
 
 void Response::handleDispatch(ResponseComponent* context) {
     std::cout << "[Response State] Threat is active. Authorizing dispatch...\n";
@@ -9,4 +10,19 @@ void Response::handleDispatch(ResponseComponent* context) {
     std::string eventMsg = "DispatchUnits"; 
     
     context->triggerEvent(eventMsg);
+}
+
+/**
+ * @brief The handle method for switching states
+ * @param context This is a pointer to the object which has a state object/instance
+ * 
+ * @date 19/09/2026
+ */
+void Response::handle(ResponseComponent* context) {
+    if (!context) {return;}
+
+    handleDispatch(context);
+
+    std::unique_ptr<Recovery> newStage(new Recovery());
+    context->setStage(std::move(newStage));
 }

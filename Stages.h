@@ -7,6 +7,8 @@ class Stages {
 public:
     virtual ~Stages() = default;
 
+    virtual void handle(ResponseComponent* context) = 0;
+
     // Default rejection methods
     virtual void handleAlert(ResponseComponent* context);
     virtual void handleDispatch(ResponseComponent* context);

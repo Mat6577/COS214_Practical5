@@ -12,8 +12,7 @@ class LegacyAccessControlSystem
 {
 private:
 public:
-    LegacyAccessControlSystem() = default;
-    ~LegacyAccessControlSystem() = default;
+    virtual ~LegacyAccessControlSystem() = default;
 
     virtual void lockArea(CampusComponent* area, std::string password);
     virtual void unlockArea(CampusComponent* area, std::string password);

@@ -8,12 +8,11 @@ SOURCES = \
 		Detection.cpp \
 		DispatchUnitCommand.cpp \
 		IssueAlertCommand.cpp \
-		LegalAccessControlSystem.cpp \
+		LegacyAccessControlSystem.cpp \
 		MedicalResponders.cpp \
 		OperatorConsole.cpp \
 		Recovery.cpp \
 		Response.cpp \
-		ResponseComponent.cpp \
 		SecureAreaCommand.cpp \
 		Stages.cpp
 

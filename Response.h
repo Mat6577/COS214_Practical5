@@ -5,6 +5,7 @@
 
 class Response : public Stages {
 public:
+    void handle(ResponseComponent* context) override;
     void handleDispatch(ResponseComponent* context) override;
 };
 

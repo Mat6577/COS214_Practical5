@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/matmo/OneDrive/Documents/COS214_Practical5",
-      "program": "c:/Users/matmo/OneDrive/Documents/COS214_Practical5/build/Debug/outDebug",
+      "cwd": "//wsl.localhost/Ubuntu/home/mat/COS214_Practical5",
+      "program": "//wsl.localhost/Ubuntu/home/mat/COS214_Practical5/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

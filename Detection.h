@@ -5,6 +5,7 @@
 
 class Detection : public Stages {
 public:
+    void handle(ResponseComponent* context) override;
     void handleAlert(ResponseComponent* context) override;
 };
 
