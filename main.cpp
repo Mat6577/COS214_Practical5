@@ -29,23 +29,10 @@ void IncidentTwo();
 
 int main() {
     IncidentOne();
+    IncidentTwo();
 
     return 0;
 }
-    // There is a fire
-    // we create the staff which will be in detection
-    // We then call the csmpus security
-    // The staff notifies the campus security (one of its observers)
-    // We create building
-    // We create medical stuff
-    // The security then observes the staff, the building and the medical team
-    // Staff- for when everything is fine
-    // Medical team - when it is safe to enter the building
-    // Building - when it is ready to let people in
-
-
-
-
 
 void IncidentOne() {
     OperatorConsole* librarySystem = new OperatorConsole();
@@ -112,9 +99,9 @@ void IncidentTwo() {
     OperatorConsole* BuildingSystem = new OperatorConsole();
     std::string issue = "One of the lectureHalls is on fire";
 
-    // Set up the access control command for the library area
+    // Set up the access control command for the lecture hall
     AccessControlSystem* BuildingControl = new AccessControlSystem();  // Receiver
-    CampusComponent* lectureHall = new CampusComponent();                 // Area being secured
+    CampusComponent* lectureHall = new CampusComponent();              // Area being secured
     SecureAreaCommand* LectureHallSecurityManagement = new SecureAreaCommand(BuildingControl, lectureHall);
 
     // Create the staff receiver, starting in the Detection state
@@ -127,7 +114,7 @@ void IncidentTwo() {
     CommunicationService* hallSecurity = new CampusSecurity();
     hallSecurity->changeState();  // Detection
 
-    // Command that lets security issue an alert about the current situation
+    // Command that lets security issue an alert about the fire
     IssueAlertCommand* securityIssueHandler = new IssueAlertCommand(hallSecurity, issue);
 
     // Mediator connecting staff to security
@@ -135,23 +122,28 @@ void IncidentTwo() {
     lectures->setMediator(lectureToSecurity);
     lectureToSecurity->addComponent(hallSecurity);  // Staff can notify security
 
-    lectureToSecurity->notify(lectures);    // Notifying the security of the fire
+    lectureToSecurity->notify(lectures);  // Notify security of the fire
 
+    // Create the medical responders, starting in the Detection state
     CommunicationService* medicalProfessionals = new MedicalResponders();
-    medicalProfessionals->changeState();        // Changes state to detectior
+    medicalProfessionals->changeState();  // Detection
     IssueAlertCommand* medicalIssueHandler = new IssueAlertCommand(medicalProfessionals, issue);
 
-
+    // Mediator connecting security to all its observers: staff, building, and medical team
     EmergencyCoordinator* securityToAll = new ConcreteEmergencyCoordinator();
     securityToAll->addComponent(lectures);
     securityToAll->addComponent(BuildingControl);
     securityToAll->addComponent(medicalProfessionals);
-    hallSecurity->changeState();
 
+    // Advance security state and notify all observers
+    hallSecurity->changeState();
     securityToAll->notify(hallSecurity);
+
+    // Advance medical team and staff states
     medicalProfessionals->changeState();
     lectures->changeState();
 
+    // Execute the commands for alerting security, securing the area, and alerting medical
     BuildingSystem->executeCommand(securityIssueHandler);
     BuildingSystem->executeCommand(LectureHallSecurityManagement);
     BuildingSystem->executeCommand(medicalIssueHandler);
